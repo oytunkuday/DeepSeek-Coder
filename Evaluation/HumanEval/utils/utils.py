@@ -35,6 +35,15 @@ languge_settings = {
     'sh': {
         'full_name': "Bash",
         'indent': 0
+    },
+    'scala': {
+        'full_name': "Scala",
+        'indent': 4,
+    },
+    'rust': {
+        'full_name': 'Rust',
+        'indent': 4,
+        'main': 'fn main()'
     }
 }
 
@@ -122,6 +131,9 @@ def cleanup_code(
         code = _truncate_code_at_stopwords(code, stop_words)
     elif language_type.lower() == "ts":
         code = _truncate_code_at_stopwords(code, stop_words + ["\nexport", "\nimport", "\nexport default", "\nimport default", "\nconsole.log"])
+    elif language_type.lower() == "scala":
+        stop_words = stop_words + ["\nobject ", "\nclass ", "\n/**"]
+        code = _truncate_code_at_stopwords(code, stop_words)
     else:
         code = _truncate_code_at_stopwords(code, stop_words)
 
